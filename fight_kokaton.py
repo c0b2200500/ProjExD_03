@@ -159,6 +159,9 @@ def main():
                     # 撃墜＝Noneにする
                     beam = None
                     bomb = None
+                    bird.change_img(6, screen)
+                    pg.display.update()
+                    time.sleep(1)  
 
         
         if bird.rct.colliderect(bomb.rct):
