@@ -23,6 +23,25 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+class Explosion:
+    
+    def __init__(self,bomb) :
+        ex_img = pg.image.load("ex03/fig/explosion.gif")
+        ex_img_r =pg.transform.flip(ex_img, True, False)
+        ex_img_u =pg.transform.flip(ex_img,True,True)
+        ex_img_d =pg.transform.flip(ex_img,False,False)
+        ex_img_l =pg.transform.flip(ex_img,False,True)
+        self.ex_img_list =[ex_img_d,ex_img_u,ex_img_l,ex_img_r]
+        self.rct.center=bomb.rct.center
+        self.life = 100
+
+    def update(self, screen):
+        self.life -= 1
+        self.img = self.ex_img_list[self.life%4]
+        screen.blit(self.img, self.rct)
+
+        
+
 
 class Bird:
     """
@@ -146,6 +165,7 @@ def main():
     bird = Bird(3, (900, 400))
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
     beam = None
+    ex_insu =[]
 
     clock = pg.time.Clock()
     tmr = 0
@@ -169,12 +189,17 @@ def main():
         for i, bomb in enumerate(bombs):
             if beam is not None:
                 if beam.rct.colliderect(bomb.rct):  # ビームと爆弾の衝突判定
+                    ex = Explosion(bomb)
+                    ex_insu.append(ex)
                     # 撃墜＝Noneにする
                     beam = None
                     bombs[i] = None
                     bird.change_img(6, screen)
                     pg.display.update()
         bombs = [bomb for bomb in bombs if bomb is not None]
+        for i in range(len(ex_insu)):
+            if i.
+            
 
         
         if bird.rct.colliderect(bomb.rct):
