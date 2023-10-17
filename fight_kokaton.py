@@ -165,7 +165,7 @@ def main():
     bird = Bird(3, (900, 400))
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
     beam = None
-    ex_insu =[]
+    ex_insu =[]#爆発エフェクトのインスタンス収納のリスト
 
     clock = pg.time.Clock()
     tmr = 0
